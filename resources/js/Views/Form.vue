@@ -1,7 +1,7 @@
 <template>
     <form class="container mt-5">
       <h1>Выбирете города</h1>
-      <input v-model="prefix" @keyup="getCitiesByPrefix" type="text" class="form-control" ref="input">
+      <input v-model="prefix" @keyup="getCitiesByPrefix" placeholder="Напишите название города" type="text" class="form-control" ref="input">
 
       <template v-if="cities">
         <select @change="drawSelectedCities" name="cities[]" v-model="selectedCitiesIds" class="form-select mt-2" ref="select" multiple>
@@ -37,26 +37,13 @@
       }
     },
 
-    mounted() {
-      this.getAllCities()
-    },
-
     methods: {
-      getAllCities() {
-        axios.get('/api/cities')
-          .then(res => {
-            this.cities = res.data
-          })
-      },
-
       getCitiesByPrefix() {
-        if (this.prefix) {
+        if (this.prefix.length > 2) {
           axios.get(`/api/cities/${this.prefix}/prefix`)
             .then(res => {
               this.cities = res.data
             })
-        } else {
-          this.getAllCities()
         }
       },
 

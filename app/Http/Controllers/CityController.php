@@ -8,16 +8,6 @@ use App\Models\City;
 class CityController extends Controller
 {
     /**
-     * Return all cities
-     */
-    public function index(): array
-    {
-        $cities = City::all();
-
-        return CityResource::collection($cities)->resolve();
-    }
-
-    /**
      * Return city by id
      */
     public function show(City $city): array
